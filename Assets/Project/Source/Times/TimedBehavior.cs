@@ -11,13 +11,27 @@ public class TimedBehavior : MonoBehaviour
     public bool IsUsingTime
     {
         get => _isUsingTime;
-        set
+        private set
         {
             if (_isUsingTime == value)
             {
                 return;
             }
             SetIsUsingTime(value);
+        }
+    }
+
+    public TimeDome TimeDome
+    {
+        get => _timeDome;
+        set
+        {
+            if (_timeDome == value)
+            {
+                return;
+            }
+            _timeDome = value;
+            IsUsingTime = false;
         }
     }
 
@@ -54,5 +68,10 @@ public class TimedBehavior : MonoBehaviour
     private void FixedUpdate()
     {
         IsUsingTime = GetTimeUsage();
+    }
+
+    private void OnDisable()
+    {
+        IsUsingTime = false;
     }
 }
