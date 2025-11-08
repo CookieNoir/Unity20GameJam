@@ -63,11 +63,11 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
             return;
         }
         Color startColor = _propertyBlock.GetColor(_propertyName);
-        _transitionCoroutine = Transition(fromColor, toColor, curve, duration);
+        _transitionCoroutine = AnimateTransition(fromColor, toColor, curve, duration);
         StartCoroutine(_transitionCoroutine);
     }
 
-    private IEnumerator Transition(Color fromColor, Color toColor, AnimationCurve curve, float duration)
+    private IEnumerator AnimateTransition(Color fromColor, Color toColor, AnimationCurve curve, float duration)
     {
         float timeSpent = 0f;
         while (timeSpent < duration)

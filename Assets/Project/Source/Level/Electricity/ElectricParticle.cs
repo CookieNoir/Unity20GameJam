@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,8 +7,9 @@ public class ElectricParticle : MonoBehaviour
     [SerializeField] private Transform _movableTransform;
     [SerializeField] private TimedBehavior _timedBehavior;
     [SerializeField, Min(0f)] private float _movementSpeed = 1f;
-    [field: SerializeField] public UnityEvent OnEndReached { get; private set; }
-    [field: SerializeField] public UnityEvent<ElectricParticle> BeforeReleased { get; private set; }
+    [field: SerializeField] public UnityEvent OnPathCompleted { get; private set; }
+    public event Action<ElectricParticle> OnEndReached;
+    public event Action<ElectricParticle> BeforeReleased;
     public float ExistenceTime { get; private set; } = 0f;
     private ElectricPath _electricPath;
     private float _distanceTraveled;
@@ -65,7 +67,8 @@ public class ElectricParticle : MonoBehaviour
     private void ReachEnd()
     {
         _isEndReached = true;
-        OnEndReached?.Invoke();
+        OnEndReached?.Invoke(this);
+        OnPathCompleted?.Invoke();
     }
 
     public void Release()

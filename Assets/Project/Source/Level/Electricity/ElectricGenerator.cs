@@ -11,6 +11,7 @@ public class ElectricGenerator : MonoBehaviour
     [SerializeField, Min(1)] private int _particlesLimit = 1;
     [SerializeField] private TimeDome _timeDome;
     [SerializeField] private ElectricPath _electricPath;
+    [SerializeField] private bool _releaseOnEndReached = false;
     [field: SerializeField] public UnityEvent OnEndReached { get; private set; }
     private readonly HashSet<ElectricParticle> _activeParticles = new();
     private ElectricParticle _lastParticle;
@@ -27,14 +28,18 @@ public class ElectricGenerator : MonoBehaviour
             return;
         }
         particle.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        particle.OnEndReached?.AddListener(EndReached);
-        particle.BeforeReleased?.AddListener(ReleaseParticle);
+        particle.OnEndReached += EndReached;
+        particle.BeforeReleased += ReleaseParticle;
         _activeParticles.Add(particle);
         _lastParticle = particle;
     }
 
     private void ReleaseParticle(ElectricParticle particle)
     {
+        if (particle == null)
+        {
+            return;
+        }
         UnsubscribeFromParticle(particle);
         _activeParticles.Remove(particle);
         if (_lastParticle == particle)
@@ -45,13 +50,18 @@ public class ElectricGenerator : MonoBehaviour
 
     private void UnsubscribeFromParticle(ElectricParticle particle)
     {
-        particle.OnEndReached?.RemoveListener(EndReached);
-        particle.BeforeReleased?.RemoveListener(ReleaseParticle);
+        particle.OnEndReached -= EndReached;
+        particle.BeforeReleased -= ReleaseParticle;
     }
 
-    private void EndReached()
+    private void EndReached(ElectricParticle particle)
     {
         OnEndReached?.Invoke();
+        if (particle != null &&
+            _releaseOnEndReached)
+        {
+            particle.Release();
+        }
     }
 
     private void OnDisable()

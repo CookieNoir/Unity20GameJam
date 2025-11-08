@@ -4,7 +4,6 @@ using UnityEngine.AI;
 public class MovementDestinationSetter : Interactable
 {
     [SerializeField] private NavMeshAgent _targetAgent;
-    [SerializeField, Min(0f)] private float _reachabilityCheckRadius = 0.5f;
     private NavMeshPath _reachabilityPath;
 
     protected override bool CanSelect()

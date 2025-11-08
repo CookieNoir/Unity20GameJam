@@ -1,18 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
-public class ElectricParticleDelayedReleaser : MonoBehaviour
+public class GameTaskDisplayDelayedReleaser : MonoBehaviour
 {
-    [SerializeField] private ElectricParticle _electricParticle;
+    [SerializeField] private GameTaskDisplay _display;
     [SerializeField, Min(0f)] private float _delay = 0.5f;
     private IEnumerator _delayCoroutine;
 
     private void OnEnable()
     {
-        if (_electricParticle != null)
+        if (_display != null)
         {
-            _electricParticle.OnPathCompleted?.AddListener(StartDelayedRelease);
-            if (_electricParticle.IsEndReached) 
+            _display.OnTaskCompleted?.AddListener(StartDelayedRelease);
+            if (_display.IsTaskCompleted)
             {
                 StartDelayedRelease();
             }
@@ -21,14 +21,14 @@ public class ElectricParticleDelayedReleaser : MonoBehaviour
 
     private void StartDelayedRelease()
     {
-        if (_electricParticle == null)
+        if (_display == null)
         {
             return;
         }
         if (_delay < 0f ||
             !isActiveAndEnabled)
         {
-            _electricParticle.Release();
+            _display.Release();
             return;
         }
         if (_delayCoroutine != null)
@@ -42,17 +42,17 @@ public class ElectricParticleDelayedReleaser : MonoBehaviour
     private IEnumerator DelayedRelease()
     {
         yield return new WaitForSeconds(_delay);
-        if (_electricParticle != null)
+        if (_display != null)
         {
-            _electricParticle.Release();
+            _display.Release();
         }
     }
 
     private void OnDisable()
     {
-        if (_electricParticle != null)
+        if (_display != null)
         {
-            _electricParticle.OnPathCompleted?.RemoveListener(StartDelayedRelease);
+            _display.OnTaskCompleted?.RemoveListener(StartDelayedRelease);
         }
         _delayCoroutine = null;
     }
