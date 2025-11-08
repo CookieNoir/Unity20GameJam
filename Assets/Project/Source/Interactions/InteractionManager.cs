@@ -3,7 +3,7 @@ using UnityEngine;
 public class InteractionManager : MonoBehaviour
 {
     [SerializeField] private LayerMask _interactablesLayerMask = 0;
-    [SerializeField] private bool _canSelectAtStart = false;
+    [SerializeField] private bool _canSelectOnEnable = false;
     private Interactable _lastSelectedInteractable;
     private bool _canSelect;
 
@@ -125,7 +125,7 @@ public class InteractionManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SetCanSelect(_canSelectAtStart);
+        SetCanSelect(_canSelectOnEnable);
     }
 
     private void Update()

@@ -13,7 +13,7 @@ public class ElectricParticle : MonoBehaviour
     public float ExistenceTime { get; private set; } = 0f;
     private ElectricPath _electricPath;
     private float _distanceTraveled;
-    private bool _isEndReached = true;
+    private bool _isEndReached = false;
     private IPoolReleaser<ElectricParticle> _pool;
 
     public bool IsEndReached => _isEndReached;
@@ -23,20 +23,21 @@ public class ElectricParticle : MonoBehaviour
         _pool = pool;
     }
 
-    public void Initialize(TimeDome timeDome, ElectricPath electricPath)
+    public void ResetState()
+    {
+        ExistenceTime = 0f;
+        _distanceTraveled = 0f;
+        _isEndReached = false;
+    }
+
+    public void SetDomeAndPath(TimeDome timeDome, ElectricPath electricPath)
     {
         if (_timedBehavior != null)
         {
             _timedBehavior.TimeDome = timeDome;
         }
         _electricPath = electricPath;
-    }
-
-    private void OnEnable()
-    {
-        ExistenceTime = 0f;
-        _distanceTraveled = 0f;
-        _isEndReached = false;
+        UpdatePosition();
     }
 
     private void FixedUpdate()
@@ -51,7 +52,16 @@ public class ElectricParticle : MonoBehaviour
         float deltaTime = Time.deltaTime;
         ExistenceTime += deltaTime;
         float step = deltaTime * _movementSpeed;
-        _distanceTraveled = step;
+        _distanceTraveled += step;
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
+        if (_electricPath == null)
+        {
+            return;
+        }
         if (_electricPath.TryGetPositionByDistance(_distanceTraveled, out Vector3 position) &&
             _distanceTraveled < _electricPath.TotalDistance)
         {

@@ -45,24 +45,31 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
         {
             return;
         }
-        if (_propertyBlock == null)
-        {
-            _propertyBlock = new MaterialPropertyBlock();
-        }
         if (_transitionCoroutine != null)
         {
             StopCoroutine(_transitionCoroutine);
             _transitionCoroutine = null;
         }
+        if (_propertyBlock == null)
+        {
+            _propertyBlock = new MaterialPropertyBlock();
+        }
         _renderer.GetPropertyBlock(_propertyBlock, _materialIndex);
-        Color fromColor = _propertyBlock.GetColor(_propertyName);
+        Color fromColor;
+        if (_propertyBlock.HasProperty(_propertyName))
+        {
+            fromColor = _propertyBlock.GetColor(_propertyName);
+        }
+        else
+        {
+            fromColor = _renderer.materials[_materialIndex].GetColor(_propertyName);
+        }
         if (Mathf.Approximately(duration, 0f))
         {
             Color fromToColor = GetFromToColor(fromColor, toColor, curve, 1f);
             ApplyColor(fromToColor);
             return;
         }
-        Color startColor = _propertyBlock.GetColor(_propertyName);
         _transitionCoroutine = AnimateTransition(fromColor, toColor, curve, duration);
         StartCoroutine(_transitionCoroutine);
     }

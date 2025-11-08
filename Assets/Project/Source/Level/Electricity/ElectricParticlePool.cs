@@ -6,8 +6,9 @@ public class ElectricParticlePool : ComponentPool<ElectricParticle>, IPoolReleas
         {
             return;
         }
-        base.OnGetInstance(component);
+        component.ResetState();
         component.SetPool(this);
+        base.OnGetInstance(component);
     }
 
     protected override void OnReleaseInstance(ElectricParticle component)

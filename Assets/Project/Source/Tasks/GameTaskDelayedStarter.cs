@@ -12,7 +12,16 @@ public class GameTaskDelayedStarter : MonoBehaviour
 
     [SerializeField] private GameTaskManager _taskManager;
     [SerializeField] private GameTaskDelayPair[] _taskDelayPairs;
+    [SerializeField] private bool _startTasksOnEnable = false;
     private IEnumerator _startSequenceCoroutine;
+
+    private void OnEnable()
+    {
+        if (_startTasksOnEnable)
+        {
+            StartTasks();
+        }
+    }
 
     public void StartTasks()
     {

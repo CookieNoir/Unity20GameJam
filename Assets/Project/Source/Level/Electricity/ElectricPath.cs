@@ -37,6 +37,14 @@ public class ElectricPath : MonoBehaviour
             _distances = new float[positionCount];
         }
         _pointsCount = _lineSource.GetPositions(_points);
+        if (!_lineSource.useWorldSpace)
+        {
+            var lineSourceTransform = _lineSource.transform;
+            for (int i = 0; i < _pointsCount; ++i)
+            {
+                _points[i] = lineSourceTransform.TransformPoint(_points[i]);
+            }
+        }
         _distances[0] = _totalDistance;
         for (int i = 1; i < _pointsCount; ++i)
         {

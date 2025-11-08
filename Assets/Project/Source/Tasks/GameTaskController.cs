@@ -4,6 +4,15 @@ public class GameTaskController : MonoBehaviour
 {
     [SerializeField] private GameTask _gameTask;
     [SerializeField] private GameTaskManager _gameTaskManager;
+    [SerializeField] private bool _startTaskOnEnable = false;
+
+    private void OnEnable()
+    {
+        if (_startTaskOnEnable)
+        {
+            StartTask();
+        }
+    }
 
     public void StartTask()
     {

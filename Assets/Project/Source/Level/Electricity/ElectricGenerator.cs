@@ -11,7 +11,7 @@ public class ElectricGenerator : MonoBehaviour
     [SerializeField, Min(1)] private int _particlesLimit = 1;
     [SerializeField] private TimeDome _timeDome;
     [SerializeField] private ElectricPath _electricPath;
-    [SerializeField] private bool _releaseOnEndReached = false;
+    [SerializeField] private bool _releaseParticleOnEndReached = false;
     [field: SerializeField] public UnityEvent OnEndReached { get; private set; }
     private readonly HashSet<ElectricParticle> _activeParticles = new();
     private ElectricParticle _lastParticle;
@@ -27,7 +27,9 @@ public class ElectricGenerator : MonoBehaviour
         {
             return;
         }
-        particle.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        var particleTransform = particle.transform;
+        particleTransform.SetParent(_electricParticleParent);
+        particle.SetDomeAndPath(_timeDome, _electricPath);
         particle.OnEndReached += EndReached;
         particle.BeforeReleased += ReleaseParticle;
         _activeParticles.Add(particle);
@@ -58,7 +60,7 @@ public class ElectricGenerator : MonoBehaviour
     {
         OnEndReached?.Invoke();
         if (particle != null &&
-            _releaseOnEndReached)
+            _releaseParticleOnEndReached)
         {
             particle.Release();
         }
