@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class CharacterMovementInteractable : Interactable
 {
@@ -7,6 +8,27 @@ public class CharacterMovementInteractable : Interactable
     [SerializeField] private MovementPositionReachabilityChecker _reachabilityChecker;
     [SerializeField] private GameObject _movementCursorObject;
     [SerializeField, Min(0f)] private float _maxDistanceFromNavMesh = 0.5f;
+    [field: SerializeField] public UnityEvent<bool> OnMovementAbilityChanged { get; private set; }
+    private bool _canMove = false;
+
+    public bool CanMove
+    {
+        get => _canMove;
+        private set
+        {
+            if (_canMove == value)
+            {
+                return;
+            }
+            SetCanMove(value);
+        }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        SetCanMove(false);
+    }
 
     protected override bool CanSelect()
     {
@@ -21,8 +43,14 @@ public class CharacterMovementInteractable : Interactable
         }
         if (!IsSelected)
         {
-            _movementCursorObject.SetActive(false);
+            CanMove = false;
         }
+    }
+
+    private void SetCanMove(bool canMove)
+    {
+        _canMove = canMove;
+        OnMovementAbilityChanged?.Invoke(_canMove);
     }
 
     protected override void OnUpdateSelection(Vector3 selectionPoint)
@@ -36,11 +64,11 @@ public class CharacterMovementInteractable : Interactable
         bool isOnNavMesh = NavMesh.SamplePosition(selectionPoint, out var hit, _maxDistanceFromNavMesh, NavMesh.AllAreas);
         if (!isOnNavMesh)
         {
-            _movementCursorObject.SetActive(false);
+            CanMove = false;
             return;
         }
         bool isReachable = _reachabilityChecker.IsReachable(_characterMovement.CharacterPosition, selectionPoint);
-        _movementCursorObject.SetActive(isReachable);
+        CanMove = isReachable;
         if (isReachable)
         {
             _movementCursorObject.transform.position = hit.position;
