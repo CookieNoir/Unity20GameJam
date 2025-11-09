@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wooden Bridge (Low Poly)
+* source:	https://sketchfab.com/3d-models/wooden-bridge-low-poly-5c232ba397c542f98babd2ef95941336
+* author:	Larolei Low Poly (https://sketchfab.com/strix567)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wooden Bridge (Low Poly)" (https://sketchfab.com/3d-models/wooden-bridge-low-poly-5c232ba397c542f98babd2ef95941336) by Larolei Low Poly (https://sketchfab.com/strix567) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

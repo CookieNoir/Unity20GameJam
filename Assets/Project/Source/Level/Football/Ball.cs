@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private SphereCollider _collider;
-    [SerializeField, Min(0f)] private float _respawnDuration = 0.2f;
+    [SerializeField, Min(0f)] private float _physicsUnfreezeDelay = 0.2f;
+    [field: SerializeField] public UnityEvent OnRespawned { get; private set; }
     private IEnumerator _unfreezeCoroutine;
     private RigidbodyConstraints _initialConstraints = RigidbodyConstraints.None;
     private bool _colliderInitialState = false;
@@ -37,7 +39,7 @@ public class Ball : MonoBehaviour
         _rigidBody.isKinematic = true;
         _rigidBody.transform.position = position;
         _rigidBody.isKinematic = wasKinematic;
-        if (_respawnDuration <= 0f ||
+        if (_physicsUnfreezeDelay <= 0f ||
             !isActiveAndEnabled)
         {
             return;
@@ -56,11 +58,12 @@ public class Ball : MonoBehaviour
         }
         _unfreezeCoroutine = Unfreeze();
         StartCoroutine(_unfreezeCoroutine);
+        OnRespawned?.Invoke();
     }
 
     private IEnumerator Unfreeze()
     {
-        yield return new WaitForSeconds(_respawnDuration);
+        yield return new WaitForSeconds(_physicsUnfreezeDelay);
         RestoreState();
         _unfreezeCoroutine = null;
     }
