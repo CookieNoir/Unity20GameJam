@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ElectricPath : MonoBehaviour
+public class LineRendererPath : MonoBehaviour
 {
     [SerializeField] private LineRenderer _lineSource;
     [SerializeField] private bool _resetPointsOnEnable = true;
@@ -8,7 +8,7 @@ public class ElectricPath : MonoBehaviour
     private float[] _distances;
     private int _pointsCount;
     private bool _arePointsReceived = false;
-    private float _totalDistance;
+    private float _totalDistance = 0f;
 
     public float TotalDistance => _totalDistance;
 
@@ -82,7 +82,7 @@ public class ElectricPath : MonoBehaviour
         return true;
     }
 
-    public static int FindLowerNearest(float[] arr, float target)
+    private static int FindLowerNearest(float[] arr, float target)
     {
         int left = 0;
         int right = arr.Length - 1;

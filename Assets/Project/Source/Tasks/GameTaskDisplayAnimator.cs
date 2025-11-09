@@ -83,6 +83,7 @@ public class GameTaskDisplayAnimator : MonoBehaviour
         }
         SetScale(scalingCurve, 1f);
         SetAlpha(alphaCurve, 1f);
+        _animationCoroutine = null;
     }
 
     private void SetScale(AnimationCurve curve, float timeFactor)

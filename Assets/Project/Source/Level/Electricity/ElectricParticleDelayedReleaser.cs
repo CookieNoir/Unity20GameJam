@@ -46,6 +46,7 @@ public class ElectricParticleDelayedReleaser : MonoBehaviour
         {
             _electricParticle.Release();
         }
+        _delayCoroutine = null;
     }
 
     private void OnDisable()

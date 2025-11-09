@@ -48,14 +48,17 @@ public class GameTaskDelayedStarter : MonoBehaviour
             yield return new WaitForSeconds(pair.Delay);
             if (_taskManager == null)
             {
+                _startSequenceCoroutine = null;
                 yield break;
             }
             _taskManager.StartTask(pair.GameTask);
             if (_taskDelayPairs == null)
             {
+                _startSequenceCoroutine = null;
                 yield break;
             }
         }
+        _startSequenceCoroutine = null;
     }
 
     private void OnDisable()

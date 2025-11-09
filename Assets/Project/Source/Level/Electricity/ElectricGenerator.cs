@@ -10,7 +10,7 @@ public class ElectricGenerator : MonoBehaviour
     [SerializeField, Min(0.05f)] private float _minExistenceTimeForNewParticle = 3f;
     [SerializeField, Min(1)] private int _particlesLimit = 1;
     [SerializeField] private TimeDome _timeDome;
-    [SerializeField] private ElectricPath _electricPath;
+    [SerializeField] private LineRendererPath _electricPath;
     [SerializeField] private bool _releaseParticleOnEndReached = false;
     [field: SerializeField] public UnityEvent OnEndReached { get; private set; }
     private readonly HashSet<ElectricParticle> _activeParticles = new();

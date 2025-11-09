@@ -56,9 +56,11 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(_respawnDuration);
         if (_rigidBody == null)
         {
+            _unfreezeCoroutine = null;
             yield break;
         }
         _rigidBody.constraints = _initialConstraints;
+        _unfreezeCoroutine = null;
     }
 
     private void OnDisable()

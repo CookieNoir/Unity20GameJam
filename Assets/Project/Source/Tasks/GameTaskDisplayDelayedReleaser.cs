@@ -46,6 +46,7 @@ public class GameTaskDisplayDelayedReleaser : MonoBehaviour
         {
             _display.Release();
         }
+        _delayCoroutine = null;
     }
 
     private void OnDisable()

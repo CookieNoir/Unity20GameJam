@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MaterialColorTransitionAnimator
   _renderer: {fileID: 0}
   _materialIndex: 0
-  _propertyName: _Outer_Color
+  _propertyName: _OuterColor
   _firstColor: {r: 0, g: 0.7490196, b: 1, a: 0}
   _secondColor: {r: 0, g: 0.7490196, b: 1, a: 1}
   _firstToSecondCurve:

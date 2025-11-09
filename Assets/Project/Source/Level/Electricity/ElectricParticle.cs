@@ -11,7 +11,7 @@ public class ElectricParticle : MonoBehaviour
     public event Action<ElectricParticle> OnEndReached;
     public event Action<ElectricParticle> BeforeReleased;
     public float ExistenceTime { get; private set; } = 0f;
-    private ElectricPath _electricPath;
+    private LineRendererPath _electricPath;
     private float _distanceTraveled;
     private bool _isEndReached = false;
     private IPoolReleaser<ElectricParticle> _pool;
@@ -30,7 +30,7 @@ public class ElectricParticle : MonoBehaviour
         _isEndReached = false;
     }
 
-    public void SetDomeAndPath(TimeDome timeDome, ElectricPath electricPath)
+    public void SetDomeAndPath(TimeDome timeDome, LineRendererPath electricPath)
     {
         if (_timedBehavior != null)
         {

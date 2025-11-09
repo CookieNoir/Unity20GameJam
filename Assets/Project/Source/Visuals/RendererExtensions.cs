@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class RendererExtensions
 {
-    public static bool IsHavingMaterial(this Renderer renderer, int materialIndex)
+    public static bool HasMaterial(this Renderer renderer, int materialIndex)
     {
         if (renderer == null ||
             materialIndex < 0)

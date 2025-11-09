@@ -15,12 +15,19 @@ public class TimeDome : MonoBehaviour
         {
             return false;
         }
-
         Vector3 otherCenter = other.transform.TransformPoint(other.center);
         float otherRadius = GetMaxScale(other.transform) * other.radius;
+        return ContainsSphere(otherCenter, otherRadius);
+    }
 
-        float centerDistance = Vector3.Distance(DomeCenter, otherCenter);
-        return centerDistance + otherRadius <= DomeRadius;
+    public bool ContainsSphere(Vector3 center, float radius)
+    {
+        if (_domeCollider == null)
+        {
+            return false;
+        }
+        float centerDistance = Vector3.Distance(DomeCenter, center);
+        return centerDistance + radius <= DomeRadius;
     }
 
     public bool ContainsBox(BoxCollider other)

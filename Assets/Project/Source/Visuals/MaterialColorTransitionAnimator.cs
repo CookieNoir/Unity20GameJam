@@ -41,7 +41,7 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
     {
         if (!isActiveAndEnabled ||
             _renderer == null ||
-            !_renderer.IsHavingMaterial(_materialIndex))
+            !_renderer.HasMaterial(_materialIndex))
         {
             return;
         }
@@ -91,6 +91,7 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
             timeSpent += Time.deltaTime;
         }
         ApplyColor(GetFromToColor(fromColor, toColor, curve, 1f));
+        _transitionCoroutine = null;
     }
 
     private void ApplyColor(Color color)

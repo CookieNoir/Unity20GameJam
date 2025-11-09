@@ -74,6 +74,7 @@ public class ScaleTransitionAnimator : MonoBehaviour
             timeSpent += Time.deltaTime;
         }
         _targetTransform.localScale = GetFromToScale(fromScale, toScale, curve, 1f);
+        _transitionCoroutine = null;
     }
 
     private Vector3 GetFromToScale(Vector3 fromScale, Vector3 toScale, AnimationCurve curve, float timeFactor)
