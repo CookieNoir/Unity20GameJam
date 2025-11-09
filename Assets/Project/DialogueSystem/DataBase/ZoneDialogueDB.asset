@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdae7d110ff65cd448f5a61cfd4a25e1, type: 3}
+  m_Name: ZoneDialogueDB
+  m_EditorClassIdentifier: Assembly-CSharp::ZoneDialogueDB
+  dialogues:
+  - zoneId: AwakeningUnderTheTree
+    lines:
+    - text: "I fell asleep beneath this tree.\nAnd it seems\u2026 time stayed with
+        me."
+      charDelay: 0.05
+    - text: Now everything around is just a shadow of what once was.
+      charDelay: 0.05
+    - text: "But what if\u2026 I can still awaken this place?"
+      charDelay: 0.05
+    - text: '[*Hints*]
+
+        Right-click to start moving.'
+      charDelay: 0.05
+    - text: "[*Hints*]\nThe sphere around you is time \u2014 everything else is frozen
+        without it."
+      charDelay: 0.05
+  - zoneId: LowerTheBridge
+    lines:
+    - text: "The bridge\u2026 is stuck between moments."
+      charDelay: 0.1
+    - text: '**Sphere**: To move forward, you must make movement happen.'
+      charDelay: 0.1
+    - text: 'The bridge is locked on both sides...
+
+        Maybe the ball can help
+        me.'
+      charDelay: 0.1
+  - zoneId: ThePump
+    lines:
+    - text: It stood here back when the world still breathed with water.
+      charDelay: 0.2
+    - text: '[*Sphere:*] Motion gives birth to time.'
+      charDelay: 0.2
+    - text: "[*Sphere:*] Restore its rhythm \u2014 and the water will remember the
+        way."
+      charDelay: 0.2
+    - text: 'If time is movement...
+
+        Then maybe I just need to take the first
+        step.'
+      charDelay: 0.2
+  - zoneId: TheTreeIsAlive
+    lines:
+    - text: The water flows... but stops without my sphere.
+      charDelay: 0.2
+    - text: "[*Sphere:*] You can\u2019t reach everything."
+      charDelay: 0.2
+    - text: '[*Sphere:*] But you can set things in motion.'
+      charDelay: 0.2
+    - text: "Then maybe\u2026 I should simply follow the flow."
+      charDelay: 0.2

@@ -12,12 +12,15 @@ GameObject:
   - component: {fileID: 6725531324816112187}
   - component: {fileID: 146232163364002097}
   - component: {fileID: 5885325917894551879}
+  - component: {fileID: 7288930135514882428}
+  - component: {fileID: 4484282563360250219}
+  - component: {fileID: 430430304455756255}
   m_Layer: 0
   m_Name: Bridge Origin Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1475626985418825196
 Transform:
@@ -34,7 +37,6 @@ Transform:
   m_Children:
   - {fileID: 6355083468773184856}
   - {fileID: 7055336401214051399}
-  - {fileID: 862014640223463940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 89.742}
 --- !u!33 &6725531324816112187
@@ -115,59 +117,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5631801908182175344, guid: 828963f857a0af744b9ed6459a590e3f, type: 3}
---- !u!1 &3430406022529326101
-GameObject:
+--- !u!114 &7288930135514882428
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 862014640223463940}
-  - component: {fileID: 1716077199668198145}
-  m_Layer: 9
-  m_Name: Bridge NavMesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &862014640223463940
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3430406022529326101}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1475626985418825196}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1716077199668198145
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3430406022529326101}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_GameObject: {fileID: 2352682011849073384}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.0426006, y: 2.03, z: 0.12175353}
-  m_Center: {x: -0.73762506, y: 0.000012721832, z: 0.01954237}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b2cfab5c101c442928214b38738249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Bridge
+  _isRaisedAtStart: 1
+  <OnBridgeStateChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4484282563360250219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352682011849073384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c8ff74b0216e54481fb1d8f0aa2981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::BridgeAnimator
+  _bridge: {fileID: 7288930135514882428}
+  _bridgeTransform: {fileID: 6355083468773184856}
+  _loweredRotation: {x: 0, y: 0, z: 0}
+  _raisedRotation: {x: 0, y: 40, z: 0}
+  _transitionDuration: 1
+  _scheduleOnDisabled: 1
+--- !u!114 &430430304455756255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352682011849073384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da21af790441c849af0bcb7ab9f75d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::BridgeNavMeshObstacle
+  _bridge: {fileID: 7288930135514882428}
+  _navMeshObstacle: {fileID: 7639743416878961894}
 --- !u!1 &5346678827859017615
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +177,7 @@ GameObject:
   - component: {fileID: 5876791472546434060}
   - component: {fileID: 8835665601288345875}
   - component: {fileID: 2231287893038917575}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7055336401214051399
 Transform:
   m_ObjectHideFlags: 0
@@ -305,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 7597849818559579895}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.871, y: -0, z: 0.621}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -318,12 +315,12 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7597849818559579895}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.9, y: 1.025, z: 1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.871, y: 0, z: 0.621}
   m_TimeToStationary: 0.5

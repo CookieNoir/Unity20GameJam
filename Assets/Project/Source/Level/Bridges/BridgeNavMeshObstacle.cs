@@ -3,35 +3,32 @@ using UnityEngine.AI;
 
 public class BridgeNavMeshObstacle : MonoBehaviour
 {
+    [SerializeField] private Bridge _bridge;
     [SerializeField] private NavMeshObstacle _navMeshObstacle;
-    [SerializeField] private bool _isActiveOnEnable;
 
-    public void Activate()
-    {
-        SetActivated(true);
-    }
-
-    public void Deactivate()
-    {
-        SetActivated(false);
-    }
-
-    public void SetActivated(bool isActivated)
+    private void SetActivated(bool isRaised)
     {
         if (_navMeshObstacle == null)
         {
             return;
         }
-        _navMeshObstacle.enabled = isActivated;
+        _navMeshObstacle.enabled = isRaised;
     }
 
     private void OnEnable()
     {
-        SetActivated(_isActiveOnEnable);
+        if (_bridge != null) 
+        {
+            _bridge.OnBridgeStateChanged?.AddListener(SetActivated);
+            SetActivated(_bridge.IsRaised);
+        }
     }
 
     private void OnDisable()
     {
-        SetActivated(false);
+        if (_bridge != null)
+        {
+            _bridge.OnBridgeStateChanged?.RemoveListener(SetActivated);
+        }
     }
 }
