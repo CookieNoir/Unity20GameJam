@@ -22,7 +22,10 @@ public abstract class Interactable : MonoBehaviour
 
     public bool IsSelectable => isActiveAndEnabled && CanSelect();
 
-    protected abstract bool CanSelect();
+    protected virtual bool CanSelect()
+    {
+        return true;
+    }
 
     public void SetSelected(bool isSelected)
     {
@@ -30,6 +33,17 @@ public abstract class Interactable : MonoBehaviour
         OnSelect();
         OnSelectionChanged?.Invoke(_isSelected);
     }
+
+    public void UpdateSelection(Vector3 selectionPoint)
+    {
+        if (!_isSelected)
+        {
+            return;
+        }
+        OnUpdateSelection(selectionPoint);
+    }
+
+    protected virtual void OnUpdateSelection(Vector3 selectionPoint) { }
 
     protected virtual void OnSelect() { }
 
@@ -40,7 +54,7 @@ public abstract class Interactable : MonoBehaviour
 
     public void Interact(Vector3 interactionPoint)
     {
-        if (!IsSelected)
+        if (!_isSelected)
         {
             return;
         }

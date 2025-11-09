@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -986,6 +987,54 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Game",
+            "id": "ccd77a08-22c2-447f-ae80-d93af704aae3",
+            "actions": [
+                {
+                    "name": "Hit Ball",
+                    "type": "Button",
+                    "id": "f8e4e29f-5bbd-4c80-bdcf-1ca724028a97",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Respawn Ball",
+                    "type": "Button",
+                    "id": "8c08a646-19fc-4f52-895a-c02bff1a6630",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1847c036-d00a-4ab3-80c9-dfceb2b17e46",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hit Ball",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b29e5a17-e8f0-49d4-b6a9-c2a651a6be08",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Respawn Ball",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

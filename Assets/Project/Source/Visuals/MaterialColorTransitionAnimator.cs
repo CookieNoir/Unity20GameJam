@@ -79,21 +79,16 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
         float timeSpent = 0f;
         while (timeSpent < duration)
         {
+            float timeFactor = timeSpent / duration;
+            Color fromToColor = GetFromToColor(fromColor, toColor, curve, timeFactor);
+            ApplyColor(fromToColor);
+            yield return null;
             if (_renderer == null)
             {
                 _transitionCoroutine = null;
                 yield break;
             }
-            float timeFactor = timeSpent / duration;
-            Color fromToColor = GetFromToColor(fromColor, toColor, curve, timeFactor);
-            ApplyColor(fromToColor);
-            yield return null;
             timeSpent += Time.deltaTime;
-        }
-        if (_renderer == null)
-        {
-            _transitionCoroutine = null;
-            yield break;
         }
         ApplyColor(GetFromToColor(fromColor, toColor, curve, 1f));
     }

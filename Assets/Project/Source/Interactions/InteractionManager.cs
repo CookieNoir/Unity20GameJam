@@ -68,13 +68,17 @@ public class InteractionManager : MonoBehaviour
         {
             return;
         }
-        if (!TryHit(camera, screenPosition, out _, out var interactable))
+        if (!TryHit(camera, screenPosition, out Vector3 hitPoint, out var interactable))
         {
             Deselect();
             return;
         }
         if (_lastSelectedInteractable == interactable)
         {
+            if (_lastSelectedInteractable != null)
+            {
+                _lastSelectedInteractable.UpdateSelection(hitPoint);
+            }
             return;
         }
         Deselect();
@@ -84,6 +88,7 @@ public class InteractionManager : MonoBehaviour
         }
         _lastSelectedInteractable = interactable;
         _lastSelectedInteractable.IsSelected = true;
+        _lastSelectedInteractable.UpdateSelection(hitPoint);
     }
 
     private void SetCanSelect(bool canSelect)
