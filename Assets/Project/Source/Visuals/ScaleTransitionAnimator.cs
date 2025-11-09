@@ -10,15 +10,28 @@ public class ScaleTransitionAnimator : MonoBehaviour
     [SerializeField] private AnimationCurve _toMaxScaleCurve;
     [SerializeField, Min(0f)] private float _toMinScaleDuration = 1f;
     [SerializeField] private AnimationCurve _toMinScaleCurve;
+    [SerializeField] private bool _scheduleOnDisabled = true;
     private IEnumerator _transitionCoroutine;
+    private bool _isTransitionScheduled = false;
+    private bool _scheduledToMaxScale;
 
     public void StartToMaxScaleTransition()
     {
+        if (!isActiveAndEnabled)
+        {
+            ScheduleIfPossible(false);
+            return;
+        }
         StartTransition(_maxScale, _toMaxScaleCurve, _toMaxScaleDuration);
     }
 
     public void StartToMinScaleTransition()
     {
+        if (!isActiveAndEnabled)
+        {
+            ScheduleIfPossible(false);
+            return;
+        }
         StartTransition(_minScale, _toMinScaleCurve, _toMinScaleDuration);
     }
 
@@ -34,10 +47,20 @@ public class ScaleTransitionAnimator : MonoBehaviour
         }
     }
 
+    private void ScheduleIfPossible(bool toMaxScale)
+    {
+        if (!_scheduleOnDisabled)
+        {
+            return;
+        }
+        _isTransitionScheduled = true;
+        _scheduledToMaxScale = toMaxScale;
+    }
+
     private void StartTransition(Vector3 toScale, AnimationCurve curve, float duration)
     {
-        if (!isActiveAndEnabled ||
-            _targetTransform == null)
+        _isTransitionScheduled = false;
+        if (_targetTransform == null)
         {
             return;
         }
@@ -81,6 +104,14 @@ public class ScaleTransitionAnimator : MonoBehaviour
     {
         float fromToFactor = (curve != null) ? curve.Evaluate(timeFactor) : timeFactor;
         return Vector3.Lerp(fromScale, toScale, fromToFactor);
+    }
+
+    private void OnEnable()
+    {
+        if (_isTransitionScheduled)
+        {
+            StartTransition(_scheduledToMaxScale);
+        }
     }
 
     private void OnDisable()

@@ -91,7 +91,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _WaterTexture:
         m_Texture: {fileID: 2800000, guid: af28b413332f9154586a7719b4b2a543, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 8.9, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
@@ -109,6 +109,7 @@ Material:
     m_Floats:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
+    - _AlphaClipThreshold: 0.306
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -141,11 +142,11 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _ActiveColor: {r: 0.41037738, g: 0.83450097, b: 1, a: 1}
+    - _ActiveColor: {r: 0.40623865, g: 0.724926, b: 0.851, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _InactiveColor: {r: 0.26610893, g: 0.40542707, b: 0.49056602, a: 1}
+    - _InactiveColor: {r: 0.1626468, g: 0.2744146, b: 0.40566033, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

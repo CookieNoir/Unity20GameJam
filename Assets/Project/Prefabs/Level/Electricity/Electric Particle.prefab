@@ -135,7 +135,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3564072331369319899}
-        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Assembly-CSharp
+        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Game
         m_MethodName: StartTransition
         m_Mode: 0
         m_Arguments:

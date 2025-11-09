@@ -12,16 +12,29 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
     [SerializeField, Min(0f)] private float _firstToSecondDuration = 1f;
     [SerializeField] private AnimationCurve _secondToFirstCurve;
     [SerializeField, Min(0f)] private float _secondToFirstDuration = 1f;
+    [SerializeField] private bool _scheduleOnDisabled = true;
     private MaterialPropertyBlock _propertyBlock;
     private IEnumerator _transitionCoroutine;
+    private bool _isTransitionScheduled = false;
+    private bool _scheduledFirstToSecond;
 
     public void StartFirstToSecondTransition()
     {
+        if (!isActiveAndEnabled)
+        {
+            ScheduleIfPossible(true);
+            return;
+        }
         StartTransition(_secondColor, _firstToSecondCurve, _firstToSecondDuration);
     }
 
     public void StartSecondToFirstTransition()
     {
+        if (!isActiveAndEnabled)
+        {
+            ScheduleIfPossible(false);
+            return;
+        }
         StartTransition(_firstColor, _secondToFirstCurve, _secondToFirstDuration);
     }
 
@@ -37,10 +50,20 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
         }
     }
 
+    private void ScheduleIfPossible(bool firstToSecond)
+    {
+        if (!_scheduleOnDisabled)
+        {
+            return;
+        }
+        _isTransitionScheduled = true;
+        _scheduledFirstToSecond = firstToSecond;
+    }
+
     private void StartTransition(Color toColor, AnimationCurve curve, float duration)
     {
-        if (!isActiveAndEnabled ||
-            _renderer == null ||
+        _isTransitionScheduled = false;
+        if (_renderer == null ||
             !_renderer.HasMaterial(_materialIndex))
         {
             return;
@@ -104,6 +127,14 @@ public class MaterialColorTransitionAnimator : MonoBehaviour
     {
         float fromToFactor = (curve != null) ? curve.Evaluate(timeFactor) : timeFactor;
         return Color.Lerp(fromColor, toColor, fromToFactor);
+    }
+
+    private void OnEnable()
+    {
+        if (_isTransitionScheduled)
+        {
+            StartTransition(_scheduledFirstToSecond);
+        }
     }
 
     private void OnDisable()

@@ -849,7 +849,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1601964311}
-        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Assembly-CSharp
+        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Game
         m_MethodName: StartTransition
         m_Mode: 0
         m_Arguments:
@@ -3110,7 +3110,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1538325920043587826}
-        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Assembly-CSharp
+        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Game
         m_MethodName: StartTransition
         m_Mode: 0
         m_Arguments:
@@ -4456,6 +4456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Ball
   _rigidBody: {fileID: 998981144}
+  _collider: {fileID: 998981145}
   _respawnDuration: 0.2
 --- !u!114 &1814889259
 MonoBehaviour:
@@ -5043,7 +5044,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 193906603}
-        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Assembly-CSharp
+        m_TargetAssemblyTypeName: MaterialColorTransitionAnimator, Game
         m_MethodName: StartTransition
         m_Mode: 0
         m_Arguments:

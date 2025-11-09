@@ -4,9 +4,11 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody;
+    [SerializeField] private SphereCollider _collider;
     [SerializeField, Min(0f)] private float _respawnDuration = 0.2f;
     private IEnumerator _unfreezeCoroutine;
     private RigidbodyConstraints _initialConstraints = RigidbodyConstraints.None;
+    private bool _colliderInitialState = false;
 
     public Vector3 Position => _rigidBody != null ? _rigidBody.position : transform.position;
 
@@ -31,44 +33,55 @@ public class Ball : MonoBehaviour
             _rigidBody.linearVelocity = Vector3.zero;
             _rigidBody.angularVelocity = Vector3.zero;
         }
+        _rigidBody.Sleep();
         _rigidBody.isKinematic = true;
-        _rigidBody.MovePosition(position);
+        _rigidBody.transform.position = position;
         _rigidBody.isKinematic = wasKinematic;
-        if (_respawnDuration <= 0f)
+        if (_respawnDuration <= 0f ||
+            !isActiveAndEnabled)
         {
             return;
         }
         if (_unfreezeCoroutine != null)
         {
             StopCoroutine(_unfreezeCoroutine);
-            _rigidBody.constraints = _initialConstraints;
+            RestoreState();
         }
         _initialConstraints = _rigidBody.constraints;
         _rigidBody.constraints = RigidbodyConstraints.FreezeAll;
-        _rigidBody.transform.position = position;
+        if (_collider != null)
+        {
+            _colliderInitialState = _collider.enabled;
+            _collider.enabled = false;
+        }
         _unfreezeCoroutine = Unfreeze();
         StartCoroutine(_unfreezeCoroutine);
     }
 
     private IEnumerator Unfreeze()
     {
-
         yield return new WaitForSeconds(_respawnDuration);
-        if (_rigidBody == null)
-        {
-            _unfreezeCoroutine = null;
-            yield break;
-        }
-        _rigidBody.constraints = _initialConstraints;
+        RestoreState();
         _unfreezeCoroutine = null;
+    }
+
+    private void RestoreState()
+    {
+        if (_rigidBody != null)
+        {
+            _rigidBody.constraints = _initialConstraints;
+        }
+        if (_collider != null)
+        {
+            _collider.enabled = _colliderInitialState;
+        }
     }
 
     private void OnDisable()
     {
-        if (_unfreezeCoroutine != null &&
-            _rigidBody != null)
+        if (_unfreezeCoroutine != null)
         {
-            _rigidBody.constraints = _initialConstraints;
+            RestoreState();
         }
         _unfreezeCoroutine = null;
     }
